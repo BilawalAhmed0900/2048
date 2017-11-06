@@ -24,7 +24,6 @@ def rand_to_location(number):
 class table:
     def __init__(self):
         self.table = [[2, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-        self.isfail = 0
         self.score = 0
         try:
             file = open("score", "rb")
@@ -74,14 +73,17 @@ class table:
                 if first_none_zero != None and c_r[index] == 0:
                     c_r[index] = c_r[first_none_zero]
                     c_r[first_none_zero] = 0
-                    self.isfail = 0
+                    first_none_zero = first_None_Zero(c_r, index + 1)
+                    if first_none_zero != None:
+                        if c_r[first_none_zero] == c_r[index]:
+                            c_r[index] *= 2
+                            self.score += c_r[index]
+                            c_r[first_none_zero] = 0
                 elif first_none_zero != None and c_r[index] == c_r[first_none_zero]:
                     c_r[index] *= 2
                     self.score += c_r[index]
                     c_r[first_none_zero] = 0
-                    self.isfail = 0
-                elif first_none_zero == None:
-                    self.isfail = index
+                    
            
         if direction == 2 or direction == 3:
             if direction == 3:
