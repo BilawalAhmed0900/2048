@@ -7,15 +7,21 @@ import random
 import datetime
 import msvcrt
 
+if os.name == "nt":
+    clr_cmd = "cls"
+else:
+    clr_cmd = "clear"
+
+
 def getchar():
    return msvcrt.getch()
         
 def first_None_Zero(_list, start_index):
-        for index in range(start_index, len(_list)):
-            if _list[index] != 0:
-                return index
+    for index in range(start_index, len(_list)):
+        if _list[index] != 0:
+            return index
                 
-        return None
+    return None
 
 def rand_to_location(number):
     return [(number // 4) % 4, number % 4]
@@ -155,11 +161,11 @@ class table:
         elif input == "a" or input == "A":
             self.goLeft()
                             
-        os.system("cls")
+        os.system(clr_cmd)
         self._print()
 
 def main():
-    os.system("cls")
+    os.system(clr_cmd)
     my_table = table()
     my_table._print()
     while True:
@@ -169,11 +175,10 @@ def main():
             break
         
         if input == "c" or input == "C":
-            os.system("cls")
+            os.system(clr_cmd)
             break
             
-        my_table.update(input)
-        
+        my_table.update(input)        
     
 
 if __name__ == "__main__":
