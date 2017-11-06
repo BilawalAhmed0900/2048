@@ -26,6 +26,13 @@ class table:
         self.table = [[2, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
         self.isfail = 0
         self.score = 0
+        try:
+            file = open("score", "rb")
+            self.high = int.from_bytes(file.read(8), byteorder="little")
+            file.close()
+        except:
+            self.high = 0
+        
         
     def _print(self):
         for row in self.table:
@@ -35,7 +42,7 @@ class table:
                 else:
                     print("| {:5s} |".format("    _"), end="\t")
             print("")
-        print("\nScore: {}".format(self.score), end="")
+        print("\nBest Score: {}\tCurrent Score: {}".format(self.high, self.score), end="")
             
     def goDirection(self, direction):
         if direction == 2 or direction == 3:
@@ -118,6 +125,10 @@ class table:
             else:
                 is_filled = False
             if is_filled == True:
+                if self.score > self.high:
+                    file = open("score", "wb")
+                    file.write((self.score).to_bytes(8, byteorder="little"))
+                    file.close()
                 sys.exit(0)
         
     def goUp(self):
